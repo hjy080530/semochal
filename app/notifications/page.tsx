@@ -1,3 +1,5 @@
+import TabBar from "@/components/ui/TabBar";
+
 const TABS = ["전체", "팀매칭", "마감", "공고"];
 
 const NOTIFICATIONS = [
@@ -60,52 +62,36 @@ const TYPE_DOT: Record<string, string> = {
 
 export default function NotificationsPage() {
   return (
-    <div className="bg-surface-subtle min-h-screen py-10">
-      <div className="max-w-[720px] mx-auto px-6">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-[22px] font-bold text-text-900">알림</h1>
-          <button className="text-[13px] text-text-400 hover:text-primary transition-colors">
-            모두 읽음 처리
-          </button>
-        </div>
+    <div className="min-h-[calc(100vh-56px)] bg-surface">
+      <div className="mx-auto w-[720px] py-8">
+        <h1 className="text-center text-[22px] font-bold leading-[27px] text-text-900">알림</h1>
 
-        {/* Tabs */}
-        <div className="flex gap-0 border-b border-border mb-6 bg-surface rounded-t-2xl overflow-hidden">
-          {TABS.map((tab, i) => (
-            <button
-              key={tab}
-              className={`flex-1 py-3 text-[14px] font-medium transition-colors border-b-2 ${
-                i === 0
-                  ? "border-primary text-primary"
-                  : "border-transparent text-text-400 hover:text-text-900"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        <TabBar
+          tabs={TABS}
+          className="mt-6 h-10 border-b border-border"
+          tabClassName="h-10"
+          fill
+        />
 
-        {/* Notification list */}
-        <div className="space-y-2">
+        <div className="mt-6">
           {NOTIFICATIONS.map((n, i) => (
             <div
               key={i}
-              className={`bg-surface rounded-2xl border p-5 flex gap-4 cursor-pointer hover:border-primary/30 transition-colors ${
-                n.unread ? "border-primary/20 bg-primary-light/30" : "border-border"
-              }`}
+              className="flex h-[68px] cursor-pointer items-center border-b border-divider transition-colors hover:bg-surface-subtle"
             >
-              <div className="mt-1 shrink-0">
-                <span className={`block w-2.5 h-2.5 rounded-full ${TYPE_DOT[n.type]} ${n.unread ? "" : "opacity-30"}`} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-4">
-                  <p className={`text-[14px] leading-snug ${n.unread ? "font-semibold text-text-900" : "font-medium text-text-600"}`}>
+              <span className={`mr-3 block size-2 shrink-0 rounded-full ${TYPE_DOT[n.type]} ${n.unread ? "" : "opacity-30"}`} />
+              <div className="min-w-0 flex-1">
+                <p className={`truncate text-[14px] leading-[17px] ${n.unread ? "font-semibold text-text-900" : "font-normal text-text-600"}`}>
                     {n.title}
-                  </p>
-                  <span className="text-[11px] text-text-400 shrink-0 mt-0.5">{n.time}</span>
-                </div>
-                <p className="text-[13px] text-text-600 mt-1 leading-relaxed">{n.body}</p>
+                </p>
+                <p className="mt-1 truncate text-[12px] font-normal leading-[15px] text-text-400">{n.body}</p>
               </div>
+              {i === 0 ? (
+                <button className="ml-3 h-9 rounded-lg border border-border px-3.5 text-[12px] font-normal leading-[15px] text-text-600">
+                  확인
+                </button>
+              ) : null}
+              <span className="sr-only">{n.time}</span>
             </div>
           ))}
         </div>

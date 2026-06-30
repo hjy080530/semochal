@@ -1,152 +1,109 @@
-import AwardCard from "@/components/AwardCard";
+import Link from "next/link";
 
-const STACK_TAGS = ["React", "TypeScript", "Next.js", "Python", "Figma", "UI/UX"];
+const STACK_TAGS = ["React", "TypeScript", "Next.js", "Node.js", "Figma", "Python"];
 
 const HISTORY = [
   {
-    contestName: "2024 공공데이터 활용 창업 경진대회",
-    teamName: "데이터 드리머스",
-    role: "개발자",
-    result: "최우수상",
-    year: 2024,
+    contestName: "2025 공공데이터 활용 공모전",
+    result: "대상",
+    role: "프론트엔드 · 3인 팀",
   },
   {
-    contestName: "2023 AI 챌린지 해커톤",
-    teamName: "AI 프론티어",
-    role: "풀스택 개발자",
+    contestName: "2024 스타트업 해커톤",
     result: "우수상",
-    year: 2023,
+    role: "풀스택 · 4인 팀",
   },
   {
-    contestName: "제12회 K-Water 공모전",
-    teamName: "그린 팀",
-    role: "프론트엔드",
-    result: "참가",
-    year: 2023,
+    contestName: "2024 ESG 아이디어 챌린지",
+    result: "출품",
+    role: "기획 · 5인 팀",
   },
-];
-
-const AWARDS = [
-  { title: "AI 기반 공공데이터 시각화 대시보드", prize: "최우수상", year: 2024, contestName: "공공데이터 활용 창업 경진대회", thumbnailColor: "#FFF0EB" },
-  { title: "실시간 이상 감지 AI 시스템", prize: "우수상", year: 2023, contestName: "AI 챌린지 해커톤", thumbnailColor: "#DFF7FF" },
 ];
 
 export default function ProfilePage() {
   return (
-    <div className="bg-surface-subtle min-h-screen py-8">
-      <div className="max-w-[1100px] mx-auto px-6 flex gap-7">
-        {/* Left: Profile card */}
-        <aside className="w-[300px] shrink-0 space-y-4">
-          <div className="bg-surface rounded-2xl border border-border p-6">
-            {/* Avatar */}
-            <div className="flex flex-col items-center text-center mb-5">
-              <div className="w-20 h-20 rounded-full bg-surface-muted border-2 border-border mb-3 flex items-center justify-center overflow-hidden">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                  <circle cx="24" cy="20" r="8" fill="#CCCCCC" />
-                  <path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="#CCCCCC" />
-                </svg>
-              </div>
-              <h2 className="text-[18px] font-bold text-text-900">홍길동</h2>
-              <p className="text-[13px] text-text-600 mt-0.5">한국대학교 컴퓨터공학과 3학년</p>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-3 mb-5 text-center">
-              {[
-                { label: "참가", value: 3 },
-                { label: "수상", value: 2 },
-                { label: "스크랩", value: 12 },
-              ].map(({ label, value }) => (
-                <div key={label} className="bg-surface-subtle rounded-xl p-3">
-                  <div className="text-[20px] font-bold text-text-900">{value}</div>
-                  <div className="text-[11px] text-text-400 mt-0.5">{label}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Tags */}
-            <div className="mb-5">
-              <h3 className="text-[12px] font-bold text-text-400 mb-2 uppercase tracking-wide">스택 · 역할</h3>
-              <div className="flex flex-wrap gap-1.5">
-                {STACK_TAGS.map((tag) => (
-                  <span key={tag} className="px-2.5 py-1 rounded-full bg-surface-muted text-[12px] text-text-600 font-medium">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Bio */}
+    <div className="min-h-[calc(100vh-56px)] bg-surface">
+      <div className="mx-auto flex w-full max-w-[1200px] gap-8 py-8">
+        <aside className="h-[430px] w-80 shrink-0 rounded-xl border border-border bg-surface p-6">
+          <div className="flex h-16 items-center gap-4">
+            <div className="size-16 rounded-full bg-[#d9d9d9]" />
             <div>
-              <h3 className="text-[12px] font-bold text-text-400 mb-2 uppercase tracking-wide">소개</h3>
-              <p className="text-[13px] text-text-600 leading-relaxed">
-                UI/UX에 관심 많은 프론트엔드 개발자입니다. 사용자 경험을 개선하는 프로젝트를 좋아합니다.
-              </p>
+              <h1 className="text-[18px] font-bold leading-[22px] text-text-900">황지영</h1>
+              <p className="mt-1 text-[13px] font-normal leading-4 text-text-600">풀스택 개발자 · 서울</p>
             </div>
           </div>
 
-          <button className="w-full py-3 rounded-xl border border-border text-[13px] font-medium text-text-600 bg-surface hover:bg-surface-muted transition-colors">
-            프로필 편집
-          </button>
-        </aside>
-
-        {/* Right: Content */}
-        <div className="flex-1 min-w-0 space-y-6">
-          {/* Tabs */}
-          <div className="flex gap-0 border-b border-border">
-            {["수상 이력", "수상작", "스크랩"].map((tab, i) => (
-              <button
-                key={tab}
-                className={`px-5 py-3 text-[14px] font-medium border-b-2 -mb-px transition-colors ${
-                  i === 0
-                    ? "border-primary text-primary"
-                    : "border-transparent text-text-400 hover:text-text-900"
+          <div className="mt-5 flex h-[21px] gap-2">
+            {["깃허브 인증", "포트폴리오", "출품이력"].map((badge, index) => (
+              <span
+                key={badge}
+                className={`inline-flex h-[21px] items-center rounded px-2 text-[11px] font-medium leading-[13px] ${
+                  index === 0
+                    ? "bg-surface-muted text-text-600"
+                    : index === 1
+                    ? "bg-info-light text-info"
+                    : "bg-success-light text-success"
                 }`}
               >
-                {tab}
-              </button>
+                {badge}
+              </span>
             ))}
           </div>
 
-          {/* Activity */}
+          <div className="mt-5 h-px bg-divider" />
+
+          <section className="mt-5">
+            <h2 className="text-[13px] font-bold leading-4 text-text-900">외부 링크</h2>
+            <div className="mt-3 space-y-3 text-[13px] leading-4 text-text-600">
+              <p>github.com/juhyun-kim</p>
+              <p>portfolio.juhyun.dev</p>
+              <p>notion.so/juhyun-resume</p>
+            </div>
+          </section>
+
+          <div className="mt-5 h-px bg-divider" />
+
+          <button className="mt-5 h-10 w-full rounded-lg bg-primary text-[14px] font-bold leading-[17px] text-white">
+            팀에 초대
+          </button>
+        </aside>
+
+        <main className="w-[848px] shrink-0">
           <section>
-            <h2 className="text-[16px] font-bold text-text-900 mb-4">공모전 참가 이력</h2>
-            <div className="space-y-3">
-              {HISTORY.map((h, i) => (
-                <div key={i} className="bg-surface rounded-2xl border border-border p-5 flex items-center gap-5">
-                  <div className="w-10 h-10 rounded-xl bg-surface-subtle flex items-center justify-center shrink-0">
-                    <span className="text-[12px] font-bold text-text-400">{h.year}</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[14px] font-semibold text-text-900 truncate">{h.contestName}</p>
-                    <p className="text-[12px] text-text-400 mt-0.5">
-                      {h.teamName} · {h.role}
-                    </p>
-                  </div>
-                  <span
-                    className={`px-3 py-1.5 rounded-full text-[12px] font-semibold shrink-0 ${
-                      h.result === "참가"
-                        ? "bg-surface-muted text-text-600"
-                        : "bg-primary-light text-primary"
-                    }`}
-                  >
-                    {h.result}
-                  </span>
-                </div>
+            <h2 className="text-[16px] font-bold leading-[19px] text-text-900">기술 스택</h2>
+            <div className="mt-3 flex h-7 flex-wrap gap-2">
+              {STACK_TAGS.map((tag) => (
+                <span key={tag} className="inline-flex h-7 items-center rounded-full bg-surface-muted px-3.5 text-[13px] leading-4 text-text-600">
+                  {tag}
+                </span>
               ))}
             </div>
           </section>
 
-          {/* Awards */}
-          <section>
-            <h2 className="text-[16px] font-bold text-text-900 mb-4">수상작</h2>
-            <div className="grid grid-cols-2 gap-4">
-              {AWARDS.map((a) => (
-                <AwardCard key={a.title} {...a} />
+          <section className="mt-7">
+            <h2 className="text-[16px] font-bold leading-[19px] text-text-900">출품 / 수상 이력</h2>
+            <div className="mt-3 space-y-3">
+              {HISTORY.map((item) => (
+                <Link
+                  key={item.contestName}
+                  href="/contest"
+                  className="flex h-[92px] items-center rounded-xl border border-border bg-surface px-4 transition-colors hover:border-primary/30"
+                >
+                  <div className="h-[60px] w-20 shrink-0 rounded-lg bg-surface-muted" />
+                  <div className="ml-4 min-w-0">
+                    <h3 className="truncate text-[14px] font-semibold leading-[17px] text-text-900">{item.contestName}</h3>
+                    <div className="mt-1 flex items-center gap-2">
+                      <span className="rounded bg-primary-light px-2 py-0.5 text-[11px] font-medium leading-[13px] text-primary">
+                        {item.result}
+                      </span>
+                      <p className="text-[12px] leading-[15px] text-text-400">{item.role}</p>
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
           </section>
-        </div>
+        </main>
       </div>
     </div>
   );
