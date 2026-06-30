@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -14,28 +15,21 @@ export default function GNB() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 bg-surface border-b border-border h-[60px] flex items-center">
-      <div className="w-full max-w-[1200px] mx-auto px-6 flex items-center gap-8">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-1.5 shrink-0">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <polygon points="11,2 20,18 2,18" fill="#FF4D00" />
-          </svg>
-          <span className="text-[18px] font-bold text-text-900 tracking-tight">SEMO.</span>
+    <header className="sticky top-0 z-50 h-14 bg-surface border-b border-border/80">
+      <div className="relative mx-auto flex h-full w-full max-w-[1200px] items-center">
+        <Link href="/" className="shrink-0">
+          <Image src="/logo.png" alt="SEMO." width={86} height={23} priority className="h-[23px] w-auto" />
         </Link>
 
-        {/* Nav */}
-        <nav className="flex items-center gap-1">
+        <nav className="absolute left-1/2 top-0 flex h-full -translate-x-1/2 items-center gap-8 text-[14px]">
           {NAV_LINKS.map(({ href, label }) => {
             const active = pathname === href;
             return (
               <Link
                 key={href}
                 href={href}
-                className={`px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors ${
-                  active
-                    ? "text-primary bg-primary-light"
-                    : "text-text-600 hover:text-text-900 hover:bg-surface-muted"
+                className={`leading-none transition-colors ${
+                  active ? "font-semibold text-text-900" : "font-normal text-text-600 hover:text-text-900"
                 }`}
               >
                 {label}
@@ -44,41 +38,40 @@ export default function GNB() {
           })}
         </nav>
 
-        {/* Right icons */}
-        <div className="ml-auto flex items-center gap-3">
+        <div className="ml-auto flex h-full items-center gap-5">
           <button
             aria-label="검색"
-            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-muted transition-colors"
+            className="flex size-5 items-center justify-center text-text-600 transition-colors hover:text-text-900"
           >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <circle cx="8" cy="8" r="5.5" stroke="#666666" strokeWidth="1.5" />
-              <path d="M12.5 12.5L16 16" stroke="#666666" strokeWidth="1.5" strokeLinecap="round" />
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="9" cy="9" r="5.75" stroke="currentColor" strokeWidth="1.4" />
+              <path d="M13.3 13.3L17 17" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
             </svg>
           </button>
           <Link
             href="/notifications"
             aria-label="알림"
-            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-muted transition-colors relative"
+            className="relative flex size-5 items-center justify-center text-text-600 transition-colors hover:text-text-900"
           >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path
-                d="M9 2a5 5 0 0 0-5 5v3l-1.5 2.5h13L14 10V7a5 5 0 0 0-5-5Z"
-                stroke="#666666"
-                strokeWidth="1.5"
+                d="M10 3a5.3 5.3 0 0 0-5.3 5.3v3.1L3 14h14l-1.7-2.6V8.3A5.3 5.3 0 0 0 10 3Z"
+                stroke="currentColor"
+                strokeWidth="1.4"
                 strokeLinejoin="round"
               />
-              <path d="M7.5 14.5a1.5 1.5 0 0 0 3 0" stroke="#666666" strokeWidth="1.5" />
+              <path d="M8.2 16a1.8 1.8 0 0 0 3.6 0" stroke="currentColor" strokeWidth="1.4" />
             </svg>
-            <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
           </Link>
           <Link
             href="/my"
             aria-label="프로필"
-            className="w-8 h-8 rounded-full bg-surface-muted border border-border overflow-hidden hover:border-primary transition-colors"
+            className="flex size-5 items-center justify-center text-text-600 transition-colors hover:text-text-900"
           >
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="13" r="5" fill="#CCCCCC" />
-              <path d="M6 28c0-5.523 4.477-10 10-10s10 4.477 10 10" fill="#CCCCCC" />
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.4" />
+              <circle cx="10" cy="8" r="2.3" stroke="currentColor" strokeWidth="1.4" />
+              <path d="M5.8 15.3c.9-2 2.3-3 4.2-3s3.3 1 4.2 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
             </svg>
           </Link>
         </div>

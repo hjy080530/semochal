@@ -1,3 +1,7 @@
+'use client';
+
+import Link from "next/link";
+
 interface ContestCardProps {
   title: string;
   category: string;
@@ -5,6 +9,7 @@ interface ContestCardProps {
   isScraped?: boolean;
   teamCount?: number;
   thumbnailColor?: string;
+  href?: string;
 }
 
 export default function ContestCard({
@@ -14,76 +19,53 @@ export default function ContestCard({
   isScraped = false,
   teamCount,
   thumbnailColor = "#F5F5F5",
+  href,
 }: ContestCardProps) {
   const dDayLabel = dDay === 0 ? "D-Day" : dDay > 0 ? `D-${dDay}` : "마감";
   const isUrgent = dDay >= 0 && dDay <= 7;
 
-  return (
-    <article className="bg-surface rounded-2xl border border-border overflow-hidden hover:shadow-md transition-shadow cursor-pointer group">
-      {/* Thumbnail */}
+  const card = (
+    <article className="h-[231px] overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-primary/40">
       <div
-        className="w-full aspect-[16/9] relative"
+        className="h-[130px] w-full"
         style={{ backgroundColor: thumbnailColor }}
-      >
-        <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[11px] font-semibold text-text-900 bg-white/80 backdrop-blur-sm">
-          {category}
-        </span>
-        {isUrgent && dDay >= 0 && (
-          <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[11px] font-bold text-white bg-primary">
-            {dDayLabel}
-          </span>
-        )}
-        {dDay < 0 && (
-          <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[11px] font-bold text-text-600 bg-surface-muted">
-            마감
-          </span>
-        )}
-      </div>
+      />
 
-      {/* Content */}
-      <div className="p-4">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-[14px] font-semibold text-text-900 leading-snug line-clamp-2 flex-1">
-            {title}
-          </h3>
-          <button
-            aria-label="스크랩"
-            className="shrink-0 mt-0.5"
-          >
+      <div className="flex h-[101px] flex-col gap-2 p-3.5">
+        <h3 className="line-clamp-1 w-full text-[14px] font-semibold leading-[17px] text-text-900">
+          {title}
+        </h3>
+
+        <div className="flex h-[19px] items-center justify-between">
+          <span className="rounded bg-surface-muted px-2 py-[3px] text-[11px] font-normal leading-[13px] text-text-600">
+            {category}
+          </span>
+          <span className={`text-[12px] font-semibold leading-[15px] ${isUrgent ? "text-primary" : "text-text-400"}`}>
+            {dDay >= 0 ? dDayLabel : "마감"}
+          </span>
+        </div>
+
+        <div className="flex h-[19px] items-center justify-between">
+          <button aria-label="스크랩" onClick={(e) => e.preventDefault()} className="size-4 text-text-400">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path
-                d="M4 3h10a1 1 0 0 1 1 1v11l-6-3-6 3V4a1 1 0 0 1 1-1Z"
-                stroke={isScraped ? "#FF4D00" : "#CCCCCC"}
-                strokeWidth="1.5"
+                d="M9 15s-5-3-5-7a3 3 0 0 1 5-2.2A3 3 0 0 1 14 8c0 4-5 7-5 7Z"
+                stroke={isScraped ? "#FF4D00" : "#999999"}
+                strokeWidth="1.2"
                 fill={isScraped ? "#FF4D00" : "none"}
                 strokeLinejoin="round"
               />
             </svg>
           </button>
-        </div>
-
-        <div className="mt-3 flex items-center justify-between">
-          {dDay >= 0 && dDay > 7 && (
-            <span className="text-[12px] text-text-400">D-{dDay}</span>
-          )}
-          {dDay >= 0 && dDay <= 7 && (
-            <span className="text-[12px] font-semibold text-primary">{dDayLabel}</span>
-          )}
-          {dDay < 0 && <span className="text-[12px] text-text-400">마감</span>}
-
           {teamCount !== undefined && (
-            <span className="flex items-center gap-1 text-[12px] text-text-400">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <circle cx="5" cy="5" r="2.5" stroke="#999999" strokeWidth="1.2" />
-                <circle cx="9" cy="5" r="2.5" stroke="#999999" strokeWidth="1.2" />
-                <path d="M1 12c0-2.21 1.79-4 4-4" stroke="#999999" strokeWidth="1.2" strokeLinecap="round" />
-                <path d="M9 8c2.21 0 4 1.79 4 4" stroke="#999999" strokeWidth="1.2" strokeLinecap="round" />
-              </svg>
-              팀 {teamCount}개 모집중
+            <span className="rounded bg-primary-light px-2 py-1 text-[11px] font-medium leading-[13px] text-primary">
+              팀 모집 {teamCount}건
             </span>
           )}
         </div>
       </div>
     </article>
   );
+
+  return href ? <Link href={href} className="block">{card}</Link> : card;
 }
